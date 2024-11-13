@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/vue-router@4"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Main App</h1>
+      <p>Counter: {{counter}}</p>
+      <button @click="increase">Increase</button>
+      <nav>
+        <ul>
+          <!-- <li><router-link to="/">Home</router-link></li> -->
+          <li><router-link to="/about">About</router-link></li>
+        </ul>
+      </nav>
+      <router-view></router-view>
+      <my-component></my-component>
+    </div>
+    <script src="./MyComponent.js"></script>
+    <script>
+      const { createApp } = Vue;
+      const { createRouter, createWebHashHistory } = VueRouter;
+      const routes = [
+        // { path: "/", component: HomeComponent },
+        { path: "/about", component: MyComponent },
+      ];
+      const router = createRouter({ history: createWebHashHistory(), routes });
+      createApp({
+        data() {
+          return {
+            counter: 0,
+          };
+        },
+        methods: {
+          increase() {
+            this.counter++;
+          },
+        },
+        components: {
+          "my-component": MyComponent,
+        },
+      })
+        .use(router)
+        .mount("#app");
+    </script>
+  </body>
+</html>
