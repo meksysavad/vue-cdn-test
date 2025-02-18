@@ -1,8 +1,10 @@
 const MyComponent = {
-  template: "<div><p>{{ anotherMessage }}</p></div>",
+  template: `<div>
+  <p>{{ myMessage }}</p>
+  </div>`,
   data: function () {
     return {
-      anotherMessage: "This is another component!",
+      myMessage: "This is my component!",
     };
-  }
+  },
 };

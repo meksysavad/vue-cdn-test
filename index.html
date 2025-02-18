@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://unpkg.com/vue@3"></script>
-    <script src="https://unpkg.com/vue-router@4"></script>
+    <!-- <script src="https://unpkg.com/vue-router@4"></script> -->
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/@vue/composition-api"></script> -->
+    <!-- <script src="https://unpkg.com/vue-demi"></script> -->
+    <!-- <script src="https://unpkg.com/pinia"></script> -->
   </head>
   <body>
     <div id="app">
@@ -13,39 +17,64 @@
       <p>Counter: {{counter}}</p>
       <button @click="increase">Increase</button>
       <nav>
-        <ul>
-          <!-- <li><router-link to="/">Home</router-link></li> -->
-          <li><router-link to="/about">About</router-link></li>
-        </ul>
+        <div style="display: flex; gap: 10px">
+          <button @click="changeTab(0)">Home</button>
+          <button @click="changeTab(1)">About</button>
+        </div>
       </nav>
-      <router-view></router-view>
-      <my-component></my-component>
+      <div v-if="tab==1">This is HomePage</div>
+      <div v-else>This is AboutPage</div>
+      <!-- <router-view></router-view> -->
+      <another-component></another-component>
     </div>
     <script src="./MyComponent.js"></script>
+    <script src="./AnotherComponent.js"></script>
     <script>
       const { createApp } = Vue;
-      const { createRouter, createWebHashHistory } = VueRouter;
-      const routes = [
-        // { path: "/", component: HomeComponent },
-        { path: "/about", component: MyComponent },
-      ];
-      const router = createRouter({ history: createWebHashHistory(), routes });
+      // const { createRouter, createWebHashHistory } = VueRouter;
+      // const { createPinia, defineStore } = Pinia;
+
+      // const routes = [
+      //   // { path: "/", component: HomeComponent },
+      //   { path: "/about", component: MyComponent },
+      // ];
+      // const router = createRouter({ history: createWebHashHistory(), routes });
+      // const pinia = createPinia();
       createApp({
         data() {
           return {
             counter: 0,
+            tab: 0,
           };
         },
         methods: {
           increase() {
             this.counter++;
           },
+          changeTab(tab) {
+            this.tab = tab;
+          },
+          // async getDraws() {
+          //   await axios
+          //     .get("https://apiloto.telbiz.la/api/v1/lotto/getlot")
+          //     .then((result) => {
+          //       console.log(result);
+          //     })
+          //     .catch((err) => {
+          //       console.log(error);
+          //     });
+          // },
+        },
+        mounted() {
+          // this.getDraws();
         },
         components: {
           "my-component": MyComponent,
+          "another-component": AnotherComponent,
         },
       })
-        .use(router)
+        // .use(router)
+        // .use(pinia)
         .mount("#app");
     </script>
   </body>
